@@ -1,297 +1,436 @@
-return
--- =========================================
--- DROP DAS TABELAS
--- =========================================
+-- ESTRUTURA: criação das tabelas (DDL)
+-- ==========================================
 
-PRAGMA foreign_keys = OFF;
+-- 1. ESTRUTURA DAS TABELAS (DDL)
 
-DROP TABLE IF EXISTS ordem_servico;
-
-DROP TABLE IF EXISTS equipamento;
-
-DROP TABLE IF EXISTS servico;
-
-DROP TABLE IF EXISTS pecas;
-
-DROP TABLE IF EXISTS situacao;
-
-DROP TABLE IF EXISTS categoria;
-
-DROP TABLE IF EXISTS cliente;
-
-DROP TABLE IF EXISTS modelo;
-
-DROP TABLE IF EXISTS tipo;
-
-DROP TABLE IF EXISTS marca;
-
-DROP TABLE IF EXISTS funcionario;
-
-DROP TABLE IF EXISTS cargo;
-
-PRAGMA foreign_keys = ON;
-
-return
-
--- =========================================
--- TABELA: cargo
--- =========================================
+-- ==========================================
 
 CREATE TABLE cargo (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Nome TEXT NOT NULL UNIQUE,
-    status INTEGER NOT NULL DEFAULT 1,
-    data_cadastro TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
+
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+	nome_cargo TEXT NOT NULL COLLATE NOCASE UNIQUE,
+
+	status INTEGER NOT NULL DEFAULT 1
+
 ) STRICT;
-
-
--- =========================================
--- TABELA: funcionario
--- =========================================
 
 CREATE TABLE funcionario (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Nome TEXT NOT NULL,
-    id_cargo INTEGER NOT NULL,
-    status INTEGER NOT NULL DEFAULT 1,
-    data_cadastro TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
 
-    FOREIGN KEY (id_cargo)
-        REFERENCES cargo(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-    UNIQUE(id, id_cargo)
+	nome_funcionario TEXT NOT NULL COLLATE NOCASE,
+
+	id_cargo INTEGER NOT NULL,
+
+	data_cadastro TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+
+	status INTEGER NOT NULL DEFAULT 1,
+
+	FOREIGN KEY(id_cargo) REFERENCES cargo(id) ON
+
+UPDATE
+
+	CASCADE ON
+
+	DELETE
+
+		CASCADE,
+
+		UNIQUE(id, id_cargo)
+
 ) STRICT;
-
-
--- =========================================
--- TABELA: cliente
--- =========================================
-
-CREATE TABLE cliente (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Nome TEXT NOT NULL,
-    telefone TEXT NOT NULL UNIQUE,
-    email TEXT NOT NULL UNIQUE,
-    id_funcionario INTEGER NOT NULL,
-    id_funcionario_cargo INTEGER NOT NULL
-        CHECK(id_funcionario_cargo = 1 OR id_funcionario_cargo = 2),
-    status INTEGER NOT NULL DEFAULT 1,
-    data_cadastro TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
-
-    FOREIGN KEY (id_funcionario, id_funcionario_cargo)
-        REFERENCES funcionario(id, id_cargo)
-) STRICT;
-
-
--- =========================================
--- TABELA: marca
--- =========================================
-
-CREATE TABLE marca (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Nome TEXT NOT NULL UNIQUE,
-    id_funcionario INTEGER NOT NULL,
-    id_funcionario_cargo INTEGER NOT NULL
-        CHECK(id_funcionario_cargo = 1 OR id_funcionario_cargo = 2),
-    status INTEGER NOT NULL DEFAULT 1,
-    data_cadastro TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
-
-    FOREIGN KEY (id_funcionario, id_funcionario_cargo)
-        REFERENCES funcionario(id, id_cargo)
-) STRICT;
-
-
--- =========================================
--- TABELA: tipo
--- =========================================
-
-CREATE TABLE tipo (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Nome TEXT NOT NULL UNIQUE,
-    id_funcionario INTEGER NOT NULL,
-    id_funcionario_cargo INTEGER NOT NULL
-        CHECK(id_funcionario_cargo = 1 OR id_funcionario_cargo = 2),
-    status INTEGER NOT NULL DEFAULT 1,
-    data_cadastro TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
-
-    FOREIGN KEY (id_funcionario, id_funcionario_cargo)
-        REFERENCES funcionario(id, id_cargo)
-) STRICT;
-
-
--- =========================================
--- TABELA: modelo
--- =========================================
-
-CREATE TABLE modelo (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Nome TEXT NOT NULL UNIQUE,
-    id_funcionario INTEGER NOT NULL,
-    id_funcionario_cargo INTEGER NOT NULL
-        CHECK(id_funcionario_cargo = 1 OR id_funcionario_cargo = 2),
-    status INTEGER NOT NULL DEFAULT 1,
-    data_cadastro TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
-
-    FOREIGN KEY (id_funcionario, id_funcionario_cargo)
-        REFERENCES funcionario(id, id_cargo)
-) STRICT;
-
-
--- =========================================
--- TABELA: equipamento
--- =========================================
-
-CREATE TABLE equipamento (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Nome TEXT NOT NULL,
-    id_marca INTEGER NOT NULL,
-    id_modelo INTEGER NOT NULL,
-    id_tipo INTEGER NOT NULL,
-    serial_number TEXT NOT NULL,
-    imei TEXT NOT NULL,
-    id_cliente INTEGER NOT NULL,
-    id_funcionario INTEGER NOT NULL,
-    id_funcionario_cargo INTEGER NOT NULL
-        CHECK(id_funcionario_cargo = 1 OR id_funcionario_cargo = 2),
-    status INTEGER NOT NULL DEFAULT 1,
-    data_cadastro TEXT NOT NULL
-        DEFAULT (datetime('now', 'localtime')),
-
-    FOREIGN KEY (id_funcionario, id_funcionario_cargo)
-        REFERENCES funcionario(id, id_cargo),
-
-    FOREIGN KEY (id_marca)
-        REFERENCES marca(id),
-
-    FOREIGN KEY (id_modelo)
-        REFERENCES modelo(id),
-
-    FOREIGN KEY (id_tipo)
-        REFERENCES tipo(id),
-
-    FOREIGN KEY (id_cliente)
-        REFERENCES cliente(id)
-) STRICT;
-
-
--- =========================================
--- TABELA: categoria
--- =========================================
 
 CREATE TABLE categoria (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Nome TEXT NOT NULL COLLATE NOCASE UNIQUE,
-    id_funcionario INTEGER NOT NULL,
-    id_funcionario_cargo INTEGER NOT NULL,
-    data_cadastro TEXT NOT NULL
-        DEFAULT (datetime('now', 'localtime')),
 
-    FOREIGN KEY (id_funcionario, id_funcionario_cargo)
-        REFERENCES funcionario(id, id_cargo)
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+	nome_categoria TEXT NOT NULL COLLATE NOCASE UNIQUE,
+
+	id_funcionario INTEGER NOT NULL,
+
+	id_funcionario_cargo INTEGER NOT NULL CHECK (id_funcionario_cargo = 1),
+
+	data_cadastro TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+
+	status INTEGER NOT NULL DEFAULT 1,
+
+	FOREIGN KEY (id_funcionario, id_funcionario_cargo) REFERENCES funcionario(id, id_cargo)
+
 ) STRICT;
 
+CREATE TABLE cliente (
 
--- =========================================
--- TABELA: situacao
--- =========================================
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+	nome_cliente TEXT NOT NULL COLLATE NOCASE,
+
+	email TEXT NOT NULL COLLATE NOCASE UNIQUE,
+
+	id_funcionario INTEGER NOT NULL,
+
+	id_funcionario_cargo INTEGER NOT NULL CHECK (
+
+		id_funcionario_cargo = 1
+
+	OR id_funcionario_cargo = 2
+
+	),
+
+	data_cadastro TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+
+	status INTEGER NOT NULL DEFAULT 1,
+
+	FOREIGN KEY (id_funcionario, id_funcionario_cargo) REFERENCES funcionario(id, id_cargo)
+
+) STRICT;
+
+CREATE TABLE marca (
+
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+	nome_marca TEXT NOT NULL COLLATE NOCASE UNIQUE,
+
+	id_funcionario INTEGER NOT NULL,
+
+	id_funcionario_cargo INTEGER NOT NULL CHECK (
+
+		id_funcionario_cargo = 1
+
+	OR id_funcionario_cargo = 2
+
+	),
+
+	data_cadastro TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+
+	status INTEGER NOT NULL DEFAULT 1,
+
+	FOREIGN KEY (id_funcionario, id_funcionario_cargo) REFERENCES funcionario(id, id_cargo)
+
+) STRICT;
+
+CREATE TABLE modelo (
+
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+	nome_modelo TEXT NOT NULL COLLATE NOCASE UNIQUE,
+
+	id_funcionario INTEGER NOT NULL,
+
+	id_funcionario_cargo INTEGER NOT NULL CHECK (
+
+		id_funcionario_cargo = 1
+
+	OR id_funcionario_cargo = 2
+
+	),
+
+	data_cadastro TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+
+	status INTEGER NOT NULL DEFAULT 1,
+
+	FOREIGN KEY (id_funcionario, id_funcionario_cargo) REFERENCES funcionario(id, id_cargo)
+
+) STRICT;
+
+CREATE TABLE tipo (
+
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+	nome_tipo TEXT NOT NULL COLLATE NOCASE UNIQUE,
+
+	id_funcionario INTEGER NOT NULL,
+
+	id_funcionario_cargo INTEGER NOT NULL CHECK (
+
+		id_funcionario_cargo = 1
+
+	OR id_funcionario_cargo = 2
+
+	),
+
+	data_cadastro TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+
+	status INTEGER NOT NULL DEFAULT 1,
+
+	FOREIGN KEY (id_funcionario, id_funcionario_cargo) REFERENCES funcionario(id, id_cargo)
+
+) STRICT;
+
+CREATE TABLE equipamento(
+
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+	id_marca INTEGER NOT NULL,
+
+	id_modelo INTEGER NOT NULL,
+
+	id_tipo INTEGER NOT NULL,
+
+	id_cliente INTEGER NOT NULL,
+
+	id_funcionario INTEGER NOT NULL,
+
+	id_funcionario_cargo INTEGER NOT NULL CHECK (
+
+		id_funcionario_cargo = 1
+
+		OR id_funcionario_cargo = 2
+
+	),
+
+	numero_serie TEXT DEFAULT(NULL) COLLATE NOCASE,
+
+	imei TEXT DEFAULT(NULL) COLLATE NOCASE UNIQUE,
+
+	data_cadastro TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+
+	status INTEGER NOT NULL DEFAULT 1,
+
+	FOREIGN KEY (id_marca) REFERENCES marca(id),
+
+	FOREIGN KEY (id_modelo) REFERENCES modelo(id),
+
+	FOREIGN KEY (id_tipo) REFERENCES tipo(id),
+
+	FOREIGN KEY (id_cliente) REFERENCES cliente(id),
+
+	FOREIGN KEY (id_funcionario, id_funcionario_cargo) REFERENCES funcionario(id, id_cargo)
+
+) STRICT;
+
+CREATE TABLE peca (
+
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+	nome_peca TEXT NOT NULL COLLATE NOCASE UNIQUE,
+
+	id_categoria INTEGER NOT NULL,
+
+	preco_venda INTEGER NOT NULL,
+
+	estoque_atual INTEGER NOT NULL,
+
+	id_funcionario INTEGER NOT NULL,
+
+	id_funcionario_cargo INTEGER NOT NULL CHECK (id_funcionario_cargo = 1),
+
+	data_cadastro TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+
+	status INTEGER NOT NULL DEFAULT 1,
+
+	FOREIGN KEY (id_funcionario, id_funcionario_cargo) REFERENCES funcionario(id, id_cargo),
+
+	FOREIGN KEY (id_categoria) REFERENCES categoria(id)
+
+) STRICT;
 
 CREATE TABLE situacao (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Nome TEXT NOT NULL COLLATE NOCASE UNIQUE,
-    id_funcionario INTEGER NOT NULL,
-    id_funcionario_cargo INTEGER NOT NULL,
-    status INTEGER NOT NULL DEFAULT 1,
-    data_cadastro TEXT NOT NULL
-        DEFAULT (datetime('now', 'localtime')),
 
-    FOREIGN KEY (id_funcionario, id_funcionario_cargo)
-        REFERENCES funcionario(id, id_cargo)
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+	nome_situacao TEXT NOT NULL COLLATE NOCASE UNIQUE,
+
+	status INTEGER NOT NULL DEFAULT 1
+
 ) STRICT;
 
+CREATE TABLE entrada_peca(
 
--- =========================================
--- TABELA: servico
--- =========================================
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+	id_peca INTEGER NOT NULL,
+
+	preco_compra INTEGER NOT NULL,
+
+	quantidade INTEGER NOT NULL,
+
+	id_funcionario INTEGER NOT NULL,
+
+	id_funcionario_cargo INTEGER NOT NULL CHECK (id_funcionario_cargo = 1),
+
+	data_cadastro TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+
+	FOREIGN KEY (id_peca) REFERENCES peca(id),
+
+	FOREIGN KEY (id_funcionario, id_funcionario_cargo) REFERENCES funcionario(id, id_cargo)
+
+) STRICT;
+
+CREATE TABLE saida_peca(
+
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+	id_peca INTEGER NOT NULL,
+
+	preco_venda INTEGER NOT NULL,
+
+	quantidade INTEGER NOT NULL,
+
+	id_situacao INTEGER NOT NULL,
+
+	id_funcionario INTEGER NOT NULL,
+
+	id_funcionario_cargo INTEGER NOT NULL CHECK (id_funcionario_cargo = 1),
+
+	data_cadastro TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+
+	FOREIGN KEY (id_peca) REFERENCES peca(id),
+
+	FOREIGN KEY (id_situacao) REFERENCES situacao(id),
+
+	FOREIGN KEY (id_funcionario, id_funcionario_cargo) REFERENCES funcionario(id, id_cargo)
+
+) STRICT;
+
+CREATE TABLE forma_pagamento(
+
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+	nome_forma_pagamento TEXT NOT NULL COLLATE NOCASE UNIQUE,
+
+	id_funcionario INTEGER NOT NULL,
+
+	id_funcionario_cargo INTEGER NOT NULL CHECK (id_funcionario_cargo = 1),
+
+	data_cadastro TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+
+	status INTEGER NOT NULL DEFAULT 1,
+
+	FOREIGN KEY (id_funcionario, id_funcionario_cargo) REFERENCES funcionario(id, id_cargo)
+
+) STRICT;
 
 CREATE TABLE servico (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome_servico TEXT NOT NULL COLLATE NOCASE UNIQUE,
-    id_categoria INTEGER NOT NULL,
-    preco_base INTEGER NOT NULL,
-    horas_trabalho REAL NOT NULL,
-    id_funcionario INTEGER NOT NULL,
-    id_funcionario_cargo INTEGER NOT NULL,
-    status INTEGER NOT NULL DEFAULT 1,
-    data_cadastro TEXT NOT NULL
-        DEFAULT (datetime('now', 'localtime')),
 
-    FOREIGN KEY (id_categoria)
-        REFERENCES categoria(id),
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-    FOREIGN KEY (id_funcionario, id_funcionario_cargo)
-        REFERENCES funcionario(id, id_cargo)
+	nome_servico TEXT NOT NULL COLLATE NOCASE UNIQUE,
+
+	id_categoria INTEGER NOT NULL,
+
+	preco INTEGER NOT NULL,
+
+	horas_trabalho REAL NOT NULL,
+
+	id_funcionario INTEGER NOT NULL,
+
+	id_funcionario_cargo INTEGER NOT NULL CHECK (id_funcionario_cargo = 1),
+
+	data_cadastro TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+
+	status INTEGER NOT NULL DEFAULT 1,
+
+	FOREIGN KEY (id_funcionario, id_funcionario_cargo) REFERENCES funcionario(id, id_cargo),
+
+	FOREIGN KEY (id_categoria) REFERENCES categoria(id)
+
 ) STRICT;
 
+CREATE TABLE ordem(
 
--- =========================================
--- TABELA: pecas
--- =========================================
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-CREATE TABLE pecas (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome_peca TEXT NOT NULL COLLATE NOCASE UNIQUE,
-    id_categoria INTEGER NOT NULL,
-    preco_compra INTEGER NOT NULL,
-    preco_venda INTEGER NOT NULL,
-    estoque_atual INTEGER NOT NULL,
-    id_funcionario INTEGER NOT NULL,
-    id_funcionario_cargo INTEGER NOT NULL,
-    status INTEGER NOT NULL DEFAULT 1,
-    data_cadastro TEXT NOT NULL
-        DEFAULT (datetime('now', 'localtime')),
+	id_equipamento INTEGER NOT NULL,
 
-    FOREIGN KEY (id_categoria)
-        REFERENCES categoria(id),
+	defeito_relatado TEXT NOT NULL COLLATE NOCASE,
 
-    FOREIGN KEY (id_funcionario, id_funcionario_cargo)
-        REFERENCES funcionario(id, id_cargo)
+	defeito_constatado TEXT DEFAULT('') COLLATE NOCASE,
+
+	data_abertura TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+
+	data_fechamento TEXT,
+
+	valor_total INTEGER,
+
+	id_forma_pagamento INTEGER NOT NULL,
+
+	id_funcionario_abertura INTEGER NOT NULL,
+
+	id_funcionario_cargo_abertura INTEGER NOT NULL CHECK (
+
+		id_funcionario_cargo_abertura = 1
+
+		OR id_funcionario_cargo_abertura = 2
+
+	),
+
+	id_tecnico INTEGER NOT NULL,
+
+	id_tecnico_cargo INTEGER NOT NULL CHECK (id_tecnico_cargo = 3),
+
+	FOREIGN KEY (id_equipamento) REFERENCES equipamento(id),
+
+	FOREIGN KEY (id_forma_pagamento) REFERENCES forma_pagamento(id),
+
+	FOREIGN KEY (
+
+		id_funcionario_abertura,
+
+		id_funcionario_cargo_abertura
+
+	) REFERENCES funcionario(id, id_cargo),
+
+	FOREIGN KEY (id_tecnico, id_tecnico_cargo) REFERENCES funcionario(id, id_cargo)
+
 ) STRICT;
 
+CREATE TABLE ordem_situacao(
 
--- =========================================
--- TABELA: ordem_servico
--- =========================================
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-CREATE TABLE ordem_servico (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    id_equipamento INTEGER NOT NULL,
-    id_funcionario_abertura INTEGER NOT NULL,
-    id_funcionario_cargo_abertura INTEGER NOT NULL,
-    data_abertura TEXT NOT NULL
-        DEFAULT (datetime('now', 'localtime')),
-    data_fechamento TEXT,
-    descricao_defeito TEXT NOT NULL,
-    defeito_relato TEXT NOT NULL,
-    relatorio_tecnico TEXT,
-    status_atual INTEGER NOT NULL,
-    valor_total INTEGER NOT NULL,
-    id_tecnico_abertura INTEGER NOT NULL
-        CHECK (id_tecnico_abertura = 3),
+	id_ordem INTEGER NOT NULL,
 
-    FOREIGN KEY (id_equipamento)
-        REFERENCES equipamento(id),
+	id_nova_situacao INTEGER NOT NULL,
 
-    FOREIGN KEY (
-        id_funcionario_abertura,
-        id_funcionario_cargo_abertura
-    )
-        REFERENCES funcionario(id, id_cargo),
+	id_funcionario INTEGER NOT NULL,
 
-    FOREIGN KEY (status_atual)
-        REFERENCES situacao(id),
+	data_situacao TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
 
-    FOREIGN KEY (id_tecnico_abertura)
-        REFERENCES funcionario(id)
+	FOREIGN KEY (id_ordem) REFERENCES ordem(id),
+
+	FOREIGN KEY (id_funcionario) REFERENCES funcionario(id),
+
+	FOREIGN KEY (id_nova_situacao) REFERENCES situacao(id)
+
+) STRICT;
+
+CREATE TABLE ordem_peca(
+
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+	id_ordem INTEGER NOT NULL,
+
+	id_peca INTEGER NOT NULL,
+
+	preco INTEGER NOT NULL,
+
+	quantidade INTEGER NOT NULL,
+
+	data_saida TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+
+	FOREIGN KEY (id_ordem) REFERENCES ordem(id),
+
+	FOREIGN KEY (id_peca) REFERENCES peca(id)
+
+) STRICT;
+
+CREATE TABLE ordem_servico(
+
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+	id_ordem INTEGER NOT NULL,
+
+	id_servico INTEGER NOT NULL,
+
+	preco_praticado INTEGER NOT NULL,
+
+	quantidade INTEGER NOT NULL,
+
+	data_execucao TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+
+	FOREIGN KEY (id_ordem) REFERENCES ordem(id),
+
+	FOREIGN KEY (id_servico) REFERENCES servico(id)
+
 ) STRICT;

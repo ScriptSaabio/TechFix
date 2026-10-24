@@ -1,260 +1,2468 @@
+-- CARGA INICIAL: inserção de dados (DML)
+-- ==========================================
 
--- =========================================
--- CARGOS
--- =========================================
+-- 2. POPULAÇÃO DE DADOS (DML)
 
-INSERT INTO cargo (Nome)
+-- ==========================================
+
+-- 2.1. Cargos e Funcionários (Necessários para chave estrangeira das demais tabelas)
+
+INSERT
+
+	INTO
+
+	cargo (nome_cargo)
+
 VALUES
-    ('Gerente'),
-    ('Atendente'),
-    ('Técnico');
 
+	('Gerente'),
 
--- =========================================
--- FUNCIONÁRIOS
--- =========================================
+('Atendente'),
 
-INSERT INTO funcionario (Nome, id_cargo)
+('Técnico');
+
+-- Inserindo 1 Gerente (id_cargo = 1)
+
+INSERT
+
+	INTO
+
+	funcionario (nome_funcionario,
+
+	id_cargo)
+
 VALUES
-    ('Carlos Oliveira', 3),
-    ('Rafael Santos', 3),
-    ('Lucas Almeida', 3),
-    ('Mariana Costa', 2),
-    ('Juliana Souza', 2),
-    ('Fernando Martins', 1);
 
+	('Carlos Eduardo Silva',
 
--- =========================================
--- CLIENTES
--- =========================================
+1\);
 
-INSERT INTO cliente
-    (Nome, telefone, email, id_funcionario, id_funcionario_cargo)
+-- Inserindo 3 Atendentes (id_cargo = 2)
+
+INSERT
+
+	INTO
+
+	funcionario (nome_funcionario,
+
+	id_cargo)
+
 VALUES
-    ('João Pereira', '11987654321', 'joao.pereira@email.com', 4, 2),
-    ('Ana Beatriz', '11976543210', 'ana.beatriz@email.com', 5, 2),
-    ('Marcos Ribeiro', '11965432109', 'marcos.ribeiro@email.com', 6, 1),
-    ('Camila Fernandes', '11954321098', 'camila.fernandes@email.com', 4, 2),
-    ('Pedro Henrique', '11943210987', 'pedro.henrique@email.com', 5, 2),
-    ('Larissa Martins', '11932109876', 'larissa.martins@email.com', 6, 1);
 
+	('Ana Beatriz Rocha',
 
--- =========================================
--- MARCAS
--- =========================================
+2\),
 
-INSERT INTO marca
-    (Nome, id_funcionario, id_funcionario_cargo)
+('Lucas Fernando Santos',
+
+2\),
+
+('Mariana Costa Lima',
+
+2\);
+
+-- Inserindo 2 Técnicos (id_cargo = 3)
+
+INSERT
+
+	INTO
+
+	funcionario (nome_funcionario,
+
+	id_cargo)
+
 VALUES
-    ('Dell', 6, 1),
-    ('Lenovo', 4, 2),
-    ('HP', 5, 2),
-    ('Samsung', 6, 1),
-    ('Apple', 4, 2),
-    ('Motorola', 5, 2);
 
+	('Gabriel Alves Pereira',
 
--- =========================================
--- TIPOS
--- =========================================
+3\),
 
-INSERT INTO tipo
-    (Nome, id_funcionario, id_funcionario_cargo)
+('Juliana Rodrigues Mendes',
+
+3\);
+
+-- 2.2. Categorias
+
+INSERT
+
+	INTO
+
+	categoria (
+
+		nome_categoria,
+
+		id_funcionario,
+
+		id_funcionario_cargo
+
+	)
+
 VALUES
-    ('Notebook', 4, 2),
-    ('Desktop', 5, 2),
-    ('Smartphone', 6, 1),
-    ('Tablet', 4, 2),
-    ('Monitor', 5, 2),
-    ('Impressora', 6, 1);
 
+	(
 
--- =========================================
--- MODELOS
--- =========================================
+		'acessórios',
 
-INSERT INTO modelo
-    (Nome, id_funcionario, id_funcionario_cargo)
-VALUES
-    ('Inspiron 15', 4, 2),
-    ('ThinkPad E14', 5, 2),
-    ('Pavilion 15', 6, 1),
-    ('Galaxy S24', 4, 2),
-    ('iPhone 15', 5, 2),
-    ('Moto G84', 6, 1),
-    ('iPad 10', 4, 2),
-    ('Galaxy Tab S9', 5, 2);
+		1,
 
-
--- =========================================
--- EQUIPAMENTOS
--- =========================================
-
-INSERT INTO equipamento
 (
-    Nome,
-    id_marca,
-    id_modelo,
-    id_tipo,
-    serial_number,
-    imei,
-    id_cliente,
-    id_funcionario,
-    id_funcionario_cargo
-)
+
+SELECT
+
+				id_cargo
+
+FROM
+
+				funcionario
+
+WHERE
+
+				id = 1
+
+		)
+
+	),
+
+(
+
+		'áudio',
+
+		1,
+
+(
+
+SELECT
+
+				id_cargo
+
+FROM
+
+				funcionario
+
+WHERE
+
+				id = 1
+
+		)
+
+	),
+
+(
+
+		'baterias',
+
+		1,
+
+(
+
+SELECT
+
+				id_cargo
+
+FROM
+
+				funcionario
+
+WHERE
+
+				id = 1
+
+		)
+
+	),
+
+(
+
+		'carcaças',
+
+		1,
+
+(
+
+SELECT
+
+				id_cargo
+
+FROM
+
+				funcionario
+
+WHERE
+
+				id = 1
+
+		)
+
+	),
+
+(
+
+		'celulares',
+
+		1,
+
+(
+
+SELECT
+
+				id_cargo
+
+FROM
+
+				funcionario
+
+WHERE
+
+				id = 1
+
+		)
+
+	),
+
+(
+
+		'componentes',
+
+		1,
+
+(
+
+SELECT
+
+				id_cargo
+
+FROM
+
+				funcionario
+
+WHERE
+
+				id = 1
+
+		)
+
+	),
+
+(
+
+		'computadores',
+
+		1,
+
+(
+
+SELECT
+
+				id_cargo
+
+FROM
+
+				funcionario
+
+WHERE
+
+				id = 1
+
+		)
+
+	),
+
+(
+
+		'eletrônica avançada',
+
+		1,
+
+(
+
+SELECT
+
+				id_cargo
+
+FROM
+
+				funcionario
+
+WHERE
+
+				id = 1
+
+		)
+
+	),
+
+(
+
+		'informática',
+
+		1,
+
+(
+
+SELECT
+
+				id_cargo
+
+FROM
+
+				funcionario
+
+WHERE
+
+				id = 1
+
+		)
+
+	),
+
+(
+
+		'insumos',
+
+		1,
+
+(
+
+SELECT
+
+				id_cargo
+
+FROM
+
+				funcionario
+
+WHERE
+
+				id = 1
+
+		)
+
+	),
+
+(
+
+		'recuperação de dados',
+
+		1,
+
+(
+
+SELECT
+
+				id_cargo
+
+FROM
+
+				funcionario
+
+WHERE
+
+				id = 1
+
+		)
+
+	),
+
+(
+
+		'redes',
+
+		1,
+
+(
+
+SELECT
+
+				id_cargo
+
+FROM
+
+				funcionario
+
+WHERE
+
+				id = 1
+
+		)
+
+	),
+
+(
+
+		'smart tvs',
+
+		1,
+
+(
+
+SELECT
+
+				id_cargo
+
+FROM
+
+				funcionario
+
+WHERE
+
+				id = 1
+
+		)
+
+	),
+
+(
+
+		'telas',
+
+		1,
+
+(
+
+SELECT
+
+				id_cargo
+
+FROM
+
+				funcionario
+
+WHERE
+
+				id = 1
+
+		)
+
+	),
+
+(
+
+		'tvs',
+
+		1,
+
+(
+
+SELECT
+
+				id_cargo
+
+FROM
+
+				funcionario
+
+WHERE
+
+				id = 1
+
+		)
+
+	),
+
+(
+
+		'videogames',
+
+		1,
+
+(
+
+SELECT
+
+				id_cargo
+
+FROM
+
+				funcionario
+
+WHERE
+
+				id = 1
+
+		)
+
+	);
+
+-- 2.3. Serviços
+
+INSERT
+
+	INTO
+
+	servico (
+
+		nome_servico,
+
+		id_categoria,
+
+		preco,
+
+		horas_trabalho,
+
+		id_funcionario,
+
+		id_funcionario_cargo
+
+	)
+
 VALUES
-    ('Notebook Dell Inspiron 15', 1, 1, 1, 'DLINS150001', '356789012345678', 1, 4, 2),
-    ('Notebook Lenovo ThinkPad E14', 2, 2, 1, 'LNE140002', '356789012345679', 2, 5, 2),
-    ('Notebook HP Pavilion 15', 3, 3, 1, 'HPPAV150003', '356789012345680', 3, 6, 1),
-    ('Samsung Galaxy S24', 4, 4, 3, 'SGS240004', '356789012345681', 4, 4, 2),
-    ('Apple iPhone 15', 5, 5, 3, 'IPH150005', '356789012345682', 5, 5, 2),
-    ('Motorola Moto G84', 6, 6, 3, 'MOG840006', '356789012345683', 6, 6, 1),
-    ('Apple iPad 10', 5, 7, 4, 'IPAD100007', '356789012345684', 1, 4, 2),
-    ('Samsung Galaxy Tab S9', 4, 8, 4, 'SGTS90008', '356789012345685', 2, 5, 2);
 
+	(
 
--- =========================================
--- CATEGORIAS
--- =========================================
+		'Formatação e Instalação de Sistema Operacional',
 
-INSERT INTO categoria
-    (Nome, id_funcionario, id_funcionario_cargo)
+		1,
+
+		12000,
+
+		2.0,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Limpeza Interna e Troca de Pasta Térmica',
+
+		1,
+
+		15000,
+
+		1.5,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Upgrade de Hardware (RAM/SSD)',
+
+		1,
+
+		8000,
+
+		1.0,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Remoção de Vírus e Malwares',
+
+		1,
+
+		10000,
+
+		1.5,
+
+		1,
+
+		1
+
+	),
+
+('Troca de Tela de Notebook',
+
+1,
+
+18000,
+
+1.5,
+
+1,
+
+1\),
+
+(
+
+		'Troca de Display/Frontal de Celular',
+
+		2,
+
+		15000,
+
+		1.0,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Troca de Bateria de Smartphone',
+
+		2,
+
+		9000,
+
+		0.5,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Desoxidação após Contato com Líquido',
+
+		2,
+
+		20000,
+
+		3.0,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Reparo em Conector de Carga (Micro USB / Type-C)',
+
+		2,
+
+		11000,
+
+		1.5,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Troca de Barra de LED de Smart TV',
+
+		13,
+
+		35000,
+
+		3.0,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Reparo na Placa Principal de Smart TV',
+
+		13,
+
+		28000,
+
+		2.5,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Conserto de Fonte de Alimentação Interna (TV)',
+
+		13,
+
+		22000,
+
+		2.0,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Configuração de Rede e Roteador Wi-Fi',
+
+		12,
+
+		9000,
+
+		1.0,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Higienização e Troca de Metal Líquido / Pasta Térmica (Console)',
+
+		16,
+
+		22000,
+
+		2.0,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Reparo de Drift em Analógico de Controle (Joy-Con / DualSense / Xbox)',
+
+		16,
+
+		8000,
+
+		1.0,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Substituição de HDMI / Conector de Vídeo (Console)',
+
+		16,
+
+		25000,
+
+		2.5,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Troca de Bateria de Caixa de Som Portátil (Bluetooth)',
+
+		4,
+
+		12000,
+
+		1.5,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Troca de Almofadas / Reparo de Cabo de Headset Gamer',
+
+		4,
+
+		7000,
+
+		1.0,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Recuperação de Dados de HD / SSD / Pendrive Danificado',
+
+		11,
+
+		30000,
+
+		4.0,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Rebaling / Reparo de BGA em Placa Mãe ou Placa de Vídeo',
+
+		8,
+
+		45000,
+
+		5.0,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Gravação e Reprogramação de BIOS Eprom (Notebook / Desktop)',
+
+		8,
+
+		16000,
+
+		2.0,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Troca de Vidro Traseiro de Smartphone a Laser / Manual',
+
+		2,
+
+		18000,
+
+		2.5,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Reparo e Solda de Conector Jack P2/P10 de Mesa de Som ou Amplificador',
+
+		4,
+
+		9500,
+
+		1.0,
+
+		1,
+
+		1
+
+	);
+
+-- 2.4. Peças
+
+INSERT
+
+	INTO
+
+	peca (
+
+		nome_peca,
+
+		id_categoria,
+
+		preco_venda,
+
+		estoque_atual,
+
+		id_funcionario,
+
+		id_funcionario_cargo
+
+	)
+
 VALUES
-    ('Manutenção de Computadores', 4, 2),
-    ('Manutenção de Celulares', 5, 2),
-    ('Manutenção de Tablets', 6, 1),
-    ('Formatação e Sistema', 4, 2),
-    ('Troca de Componentes', 5, 2),
-    ('Diagnóstico', 6, 1),
 
-    ('Computadores', 4, 2),
-    ('Celulares', 5, 2),
-    ('Smart TVs', 6, 1),
-    ('Redes', 4, 2),
-    ('Videogames', 5, 2),
-    ('Áudio', 6, 1),
-    ('Recuperação de Dados', 4, 2),
-    ('Eletrônica Avançada', 5, 2),
-    ('Informática', 6, 1),
-    ('Insumos', 4, 2),
-    ('Acessórios', 5, 2),
-    ('Telas', 6, 1),
-    ('Baterias', 4, 2),
-    ('Componentes', 5, 2),
-    ('Carcaças', 6, 1),
-    ('TVs', 4, 2);
+-- Informática / Computadores
 
+	('SSD NVMe 512GB M.2',
 
--- =========================================
--- SITUAÇÕES
--- =========================================
+9,
 
-INSERT INTO situacao
-    (Nome, id_funcionario, id_funcionario_cargo)
+26000,
+
+15,
+
+1,
+
+1\),
+
+('SSD SATA III 480GB 2.5"',
+
+9,
+
+21000,
+
+20,
+
+1,
+
+1\),
+
+(
+
+		'Memória RAM DDR4 8GB 2666MHz (Notebook)',
+
+		9,
+
+		17000,
+
+		12,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Memória RAM DDR4 16GB 3200MHz (Desktop)',
+
+		9,
+
+		32000,
+
+		8,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Pasta Térmica de Alta Performance (Bisnaga 4g)',
+
+		10,
+
+		6000,
+
+		25,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Fonte ATX 500W 80 Plus Bronze',
+
+		9,
+
+		34000,
+
+		6,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Bateria Célula Moeda CR2032 (Cartela c/ 5)',
+
+		10,
+
+		2500,
+
+		30,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Cooler para Processador Socket Universal',
+
+		9,
+
+		9500,
+
+		10,
+
+		1,
+
+		1
+
+	),
+
+('Cabo SATA III 6Gbps 50cm',
+
+3,
+
+1500,
+
+50,
+
+1,
+
+1\),
+
+(
+
+		'Tela LED 15.6" Slim 30 Pinos Full HD',
+
+		14,
+
+		48000,
+
+		5,
+
+		1,
+
+		1
+
+	),
+
+-- Smartphones / Celulares
+
+	(
+
+		'Display Frontal Completo iPhone 11',
+
+		14,
+
+		35000,
+
+		4,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Display Frontal Completo Samsung Galaxy A54',
+
+		14,
+
+		31000,
+
+		6,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Display Frontal Completo Motorola Moto G84',
+
+		14,
+
+		28000,
+
+		5,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Bateria Compatível iPhone 11 (3110mAh)',
+
+		5,
+
+		16000,
+
+		8,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Bateria Compatível Samsung Galaxy A32',
+
+		5,
+
+		13000,
+
+		7,
+
+		1,
+
+		1
+
+	),
+
+('Bateria Compatível Moto G30',
+
+5,
+
+12000,
+
+6,
+
+1,
+
+1\),
+
+(
+
+		'Conector de Carga Type-C Universal (Unidade)',
+
+		7,
+
+		2000,
+
+		100,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Conector de Carga Micro USB V8',
+
+		7,
+
+		1500,
+
+		100,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Flex de Carga e Microfone Moto G9 Play',
+
+		7,
+
+		5500,
+
+		10,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Tampa Traseira de Vidro iPhone 12',
+
+		6,
+
+		11000,
+
+		4,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Câmera Traseira Principal Redmi Note 11',
+
+		7,
+
+		14000,
+
+		3,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Alto-Falante Auricular Universal',
+
+		7,
+
+		2500,
+
+		40,
+
+		1,
+
+		1
+
+	),
+
+-- Smart TVs
+
+	(
+
+		'Barra de LED TV Samsung 50" (Kit com 3 barras)',
+
+		15,
+
+		23000,
+
+		4,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Barra de LED TV LG 43" (Kit com 3 barras)',
+
+		15,
+
+		19500,
+
+		5,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Placa Fonte TV Samsung UN50TU8000',
+
+		15,
+
+		31000,
+
+		2,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Placa Principal TV LG 43UP7500',
+
+		15,
+
+		42000,
+
+		2,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Cabo Flat T-Con para Display TV 55"',
+
+		15,
+
+		6500,
+
+		8,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Receptor Infravermelho para Controle Remoto TV',
+
+		7,
+
+		2000,
+
+		15,
+
+		1,
+
+		1
+
+	),
+
+-- Insumos e Componentes Genéricos
+
+	(
+
+		'Solda em Fio Sn60/Pb40 0.8mm (Carretel 500g)',
+
+		10,
+
+		15000,
+
+		3,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Álcool Isopropílico 99.8% 1 Litro',
+
+		10,
+
+		4500,
+
+		12,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Fita Kapton Térmica 10mm x 33m',
+
+		10,
+
+		3000,
+
+		15,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Fita Dupla Face Fixação de Telas (3mm x 50m)',
+
+		10,
+
+		3500,
+
+		10,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Fusível de Louça 5A 250V (Pacote c/ 10)',
+
+		7,
+
+		1800,
+
+		20,
+
+		1,
+
+		1
+
+	),
+
+(
+
+		'Capacitor Eletrolítico 1000uF x 25V',
+
+		7,
+
+		500,
+
+		150,
+
+		1,
+
+		1
+
+	);
+
+-- ============================================
+
+-- ==========================================
+
+-- 2. POPULAÇÃO DE DADOS (DML)
+
+-- ==========================================
+
+-- 2.1. Situações da Ordem de Serviço e Saída de Peças
+
+-- (RF07: Aberto, Em Diagnóstico, Orçamento Aprovado, Em Reparo, Pronto, Entregue, Cancelado)
+
+INSERT
+
+	INTO
+
+	situacao (nome_situacao)
+
 VALUES
-    ('Aberta', 4, 2),
-    ('Em análise', 5, 2),
-    ('Aguardando peça', 6, 1),
-    ('Em manutenção', 4, 2),
-    ('Aguardando cliente', 5, 2),
-    ('Pronta', 6, 1),
-    ('Entregue', 4, 2),
-    ('Cancelada', 5, 2);
 
+	('Aberto'),
 
--- =========================================
--- SERVIÇOS
--- =========================================
+('Em Diagnóstico'),
 
-INSERT INTO servico (
-    nome_servico,
-    id_categoria,
-    preco_base,
-    horas_trabalho,
-    id_funcionario,
-    id_funcionario_cargo
-)
+('Orçamento Aprovado'),
+
+('Em Reparo'),
+
+('Pronto'),
+
+('Entregue'),
+
+('Cancelado'),
+
+('Descarte por Defeito/Avaria');
+
+-- 2.2. Formas de Pagamento (Cadastradas por Gerente - Cargo ID 1)
+
+INSERT
+
+	INTO
+
+	forma_pagamento (
+
+		nome_forma_pagamento,
+
+		id_funcionario,
+
+		id_funcionario_cargo
+
+	)
+
 VALUES
-    ('Formatação e Instalação de Sistema Operacional', 1, 12000, 2.0, 4, 2),
-    ('Limpeza Interna e Troca de Pasta Térmica', 1, 15000, 1.5, 5, 2),
-    ('Upgrade de Hardware (RAM/SSD)', 1, 8000, 1.0, 6, 1),
-    ('Remoção de Vírus e Malwares', 1, 10000, 1.5, 4, 2),
-    ('Troca de Tela de Notebook', 1, 18000, 1.5, 5, 2),
-    ('Troca de Display/Frontal de Celular', 2, 15000, 1.0, 6, 1),
-    ('Troca de Bateria de Smartphone', 2, 9000, 0.5, 4, 2),
-    ('Desoxidação após Contato com Líquido', 2, 20000, 3.0, 5, 2),
-    ('Reparo em Conector de Carga (Micro USB / Type-C)', 2, 11000, 1.5, 6, 1),
-    ('Troca de Barra de LED de Smart TV', 3, 35000, 3.0, 4, 2),
-    ('Reparo na Placa Principal de Smart TV', 3, 28000, 2.5, 5, 2),
-    ('Conserto de Fonte de Alimentação Interna (TV)', 3, 22000, 2.0, 6, 1),
-    ('Configuração de Rede e Roteador Wi-Fi', 4, 9000, 1.0, 4, 2),
-    ('Higienização e Troca de Metal Líquido / Pasta Térmica (Console)', 5, 22000, 2.0, 5, 2),
-    ('Reparo de Drift em Analógico de Controle (Joy-Con / DualSense / Xbox)', 5, 8000, 1.0, 6, 1),
-    ('Substituição de HDMI / Conector de Vídeo (Console)', 5, 25000, 2.5, 4, 2),
-    ('Troca de Bateria de Caixa de Som Portátil (Bluetooth)', 6, 12000, 1.5, 5, 2),
-    ('Troca de Almofadas / Reparo de Cabo de Headset Gamer', 6, 7000, 1.0, 6, 1),
-    ('Recuperação de Dados de HD / SSD / Pendrive Danificado', 7, 30000, 4.0, 5, 2),
-    ('Rebaling / Reparo de BGA em Placa Mãe ou Placa de Vídeo', 8, 45000, 5.0, 6, 1),
-    ('Gravação e Reprogramação de BIOS Eprom (Notebook / Desktop)', 8, 16000, 2.0, 4, 2),
-    ('Troca de Vidro Traseiro de Smartphone a Laser / Manual', 2, 18000, 2.5, 5, 2),
-    ('Reparo e Solda de Conector Jack P2/P10 de Mesa de Som ou Amplificador', 6, 9500, 1.0, 4, 2);
 
+	('Dinheiro',
 
+1,
 
--- =========================================
--- PEÇAS
--- =========================================
+1\),
 
-INSERT INTO pecas (
-    nome_peca,
-    id_categoria,
-    preco_compra,
-    preco_venda,
-    estoque_atual,
-    id_funcionario,
-    id_funcionario_cargo
-)
+('PIX',
+
+1,
+
+1\),
+
+('Cartão de Débito',
+
+1,
+
+1\),
+
+('Cartão de Crédito - À Vista',
+
+1,
+
+1\),
+
+('Cartão de Crédito - Parcelado',
+
+1,
+
+1\),
+
+('Boleto Bancário',
+
+1,
+
+1\);
+
+-- 2.3. Clientes (RF02: Cadastrados por Atendentes [Cargo 2] ou Gerente [Cargo 1])
+
+INSERT
+
+	INTO
+
+	cliente (
+
+		nome_cliente,
+
+		email,
+
+		id_funcionario,
+
+		id_funcionario_cargo
+
+	)
+
 VALUES
-    ('SSD NVMe 512GB M.2', 9, 14000, 26000, 15, 6, 1),
-    ('SSD SATA III 480GB 2.5"', 9, 11000, 21000, 20, 4, 2),
-    ('Memória RAM DDR4 8GB 2666MHz (Notebook)', 9, 9000, 17000, 12, 5, 2),
-    ('Memória RAM DDR4 16GB 3200MHz (Desktop)', 9, 18000, 32000, 8, 6, 1),
-    ('Pasta Térmica de Alta Performance (Bisnaga 4g)', 10, 2500, 6000, 25, 4, 2),
-    ('Fonte ATX 500W 80 Plus Bronze', 9, 19000, 34000, 6, 5, 2),
-    ('Bateria Célula Moeda CR2032 (Cartela c/ 5)', 10, 800, 2500, 30, 6, 1),
-    ('Cooler para Processador Socket Universal', 9, 4500, 9500, 10, 4, 2),
-    ('Cabo SATA III 6Gbps 50cm', 11, 300, 1500, 50, 5, 2),
-    ('Tela LED 15.6" Slim 30 Pinos Full HD', 12, 28000, 48000, 5, 6, 1),
-    ('Display Frontal Completo iPhone 11', 12, 18000, 35000, 4, 4, 2),
-    ('Display Frontal Completo Samsung Galaxy A54', 12, 16000, 31000, 6, 5, 2),
-    ('Display Frontal Completo Motorola Moto G84', 12, 14000, 28000, 5, 6, 1),
-    ('Bateria Compatível iPhone 11 (3110mAh)', 13, 7500, 16000, 8, 4, 2),
-    ('Bateria Compatível Samsung Galaxy A32', 13, 6000, 13000, 7, 5, 2),
-    ('Bateria Compatível Moto G30', 13, 5500, 12000, 6, 6, 1),
-    ('Conector de Carga Type-C Universal (Unidade)', 14, 250, 2000, 100, 4, 2),
-    ('Conector de Carga Micro USB V8', 14, 150, 1500, 100, 5, 2),
-    ('Flex de Carga e Microfone Moto G9 Play', 14, 1800, 5500, 10, 6, 1),
-    ('Tampa Traseira de Vidro iPhone 12', 15, 4000, 11000, 4, 4, 2),
-    ('Câmera Traseira Principal Redmi Note 11', 14, 6500, 14000, 3, 5, 2),
-    ('Alto-Falante Auricular Universal', 14, 500, 2500, 40, 6, 1),
-    ('Barra de LED TV Samsung 50" (Kit com 3 barras)', 16, 11000, 23000, 4, 4, 2),
-    ('Barra de LED TV LG 43" (Kit com 3 barras)', 16, 9500, 19500, 5, 5, 2),
-    ('Placa Fonte TV Samsung UN50TU8000', 16, 16000, 31000, 2, 6, 1),
-    ('Placa Principal TV LG 43UP7500', 16, 21000, 42000, 2, 4, 2),
-    ('Cabo Flat T-Con para Display TV 55"', 16, 2200, 6500, 8, 5, 2),
-    ('Receptor Infravermelho para Controle Remoto TV', 14, 400, 2000, 15, 6, 1),
-    ('Solda em Fio Sn60/Pb40 0.8mm (Carretel 500g)', 10, 8500, 15000, 3, 4, 2),
-    ('Álcool Isopropílico 99.8% 1 Litro', 10, 2200, 4500, 12, 5, 2),
-    ('Fita Kapton Térmica 10mm x 33m', 10, 1200, 3000, 15, 6, 1),
-    ('Fita Dupla Face Fixação de Telas (3mm x 50m)', 10, 1500, 3500, 10, 4, 2),
-    ('Fusível de Louça 5A 250V (Pacote c/ 10)', 14, 500, 1800, 20, 5, 2),
-    ('Capacitor Eletrolítico 1000uF x 25V', 14, 80, 500, 150, 6, 1);
 
+	(
 
+		'Marcos Vinicius Souza',
 
+		'marcos.souza@email.com',
 
+		2,
 
+		2
 
+	),
 
+(
 
+		'Fernanda Maria Oliveira',
 
+		'fernanda.oliveira@email.com',
+
+		2,
+
+		2
+
+	),
+
+(
+
+		'Roberto Carlos Andrade',
+
+		'roberto.andrade@email.com',
+
+		3,
+
+		2
+
+	),
+
+(
+
+		'Camila de Cassia Martins',
+
+		'camila.martins@email.com',
+
+		3,
+
+		2
+
+	),
+
+(
+
+		'Patricia Ferreira Lima',
+
+		'patricia.lima@email.com',
+
+		4,
+
+		2
+
+	),
+
+(
+
+		'Lucas Gabriel Barbosa',
+
+		'lucas.barbosa@email.com',
+
+		1,
+
+		1
+
+	);
+
+-- 2.4. Marcas (Cadastradas por Atendentes ou Gerente)
+
+INSERT
+
+	INTO
+
+	marca (nome_marca,
+
+	id_funcionario,
+
+	id_funcionario_cargo)
+
+VALUES
+
+	('Apple',
+
+1,
+
+1\),
+
+('Samsung',
+
+1,
+
+1\),
+
+('Motorola',
+
+2,
+
+2\),
+
+('Xiaomi',
+
+2,
+
+2\),
+
+('Dell',
+
+3,
+
+2\),
+
+('Lenovo',
+
+3,
+
+2\),
+
+('LG',
+
+1,
+
+1\),
+
+('Sony',
+
+4,
+
+2\);
+
+-- 2.5. Modelos (Cadastrados por Atendentes ou Gerente)
+
+INSERT
+
+	INTO
+
+	modelo (
+
+		nome_modelo,
+
+		id_funcionario,
+
+		id_funcionario_cargo
+
+	)
+
+VALUES
+
+	('iPhone 11',
+
+2,
+
+2\),
+
+('iPhone 12',
+
+2,
+
+2\),
+
+('Galaxy A54',
+
+2,
+
+2\),
+
+('Galaxy A32',
+
+3,
+
+2\),
+
+('Moto G84',
+
+3,
+
+2\),
+
+('Moto G30',
+
+3,
+
+2\),
+
+('Redmi Note 11',
+
+4,
+
+2\),
+
+('Inspiron 15 3000',
+
+1,
+
+1\),
+
+('IdeaPad 3',
+
+2,
+
+2\),
+
+('Smart TV 50 UN50TU8000',
+
+3,
+
+2\),
+
+('Smart TV 43 43UP7500',
+
+4,
+
+2\),
+
+('PlayStation 5',
+
+1,
+
+1\);
+
+-- 2.6. Tipos de Equipamento (Cadastrados por Atendentes ou Gerente)
+
+INSERT
+
+	INTO
+
+	tipo (nome_tipo,
+
+	id_funcionario,
+
+	id_funcionario_cargo)
+
+VALUES
+
+	('Smartphone',
+
+1,
+
+1\),
+
+('Notebook',
+
+1,
+
+1\),
+
+('Desktop',
+
+2,
+
+2\),
+
+('Smart TV',
+
+2,
+
+2\),
+
+('Console de Videogame',
+
+3,
+
+2\),
+
+('Caixa de Som Bluetooth',
+
+4,
+
+2\);
+
+-- 2.7. Equipamentos (RF03: Cadastrados por Atendentes ou Gerentes)
+
+INSERT
+
+	INTO
+
+	equipamento (
+
+		id_marca,
+
+		id_modelo,
+
+		id_tipo,
+
+		id_cliente,
+
+		id_funcionario,
+
+		id_funcionario_cargo,
+
+		numero_serie,
+
+		imei
+
+	)
+
+VALUES
+
+	(1,
+
+1,
+
+1,
+
+1,
+
+2,
+
+2,
+
+NULL,
+
+'356789012345671'),
+
+(2,
+
+3,
+
+1,
+
+2,
+
+2,
+
+2,
+
+NULL,
+
+'356789012345672'),
+
+(5,
+
+8,
+
+2,
+
+3,
+
+3,
+
+2,
+
+'DELL-INSP-2023-998',
+
+NULL),
+
+(7,
+
+10,
+
+4,
+
+4,
+
+3,
+
+2,
+
+'LG-TV43-77612',
+
+NULL),
+
+(8,
+
+12,
+
+5,
+
+5,
+
+4,
+
+2,
+
+'PS5-SONY-009182',
+
+NULL),
+
+(3,
+
+5,
+
+1,
+
+6,
+
+1,
+
+1,
+
+NULL,
+
+'356789012345673');
+
+-- 2.8. Entradas de Peças (RF09: Compra/Reposição realizada por Gerente [Cargo ID 1])
+
+-- Preços gravados em centavos (ex: R$ 180,00 -> 18000)
+
+INSERT
+
+	INTO
+
+	entrada_peca (
+
+		id_peca,
+
+		preco_compra,
+
+		quantidade,
+
+		id_funcionario,
+
+		id_funcionario_cargo
+
+	)
+
+VALUES
+
+	(1,
+
+18000,
+
+20,
+
+1,
+
+1\),
+
+-- SSD NVMe
+
+	(3,
+
+11000,
+
+15,
+
+1,
+
+1\),
+
+-- RAM DDR4
+
+	(11,
+
+22000,
+
+10,
+
+1,
+
+1\),
+
+-- Tela iPhone 11
+
+	(14,
+
+9000,
+
+12,
+
+1,
+
+1\),
+
+-- Bateria iPhone 11
+
+	(23,
+
+14000,
+
+8,
+
+1,
+
+1\);
+
+-- Barra LED TV Samsung
+
+-- 2.9. Ordens de Serviço (RF04 & RF06)
+
+-- Abertura realizada por Atendente/Gerente (id_funcionario_cargo_abertura IN (1, 2))
+
+-- Técnico responsável designado deve ser id_cargo = 3 (Técnicos: IDs 5 ou 6)
+
+INSERT
+
+	INTO
+
+	ordem (
+
+		id_equipamento,
+
+		defeito_relatado,
+
+		defeito_constatado,
+
+		data_abertura,
+
+		data_fechamento,
+
+		valor_total,
+
+		id_forma_pagamento,
+
+		id_funcionario_abertura,
+
+		id_funcionario_cargo_abertura,
+
+		id_tecnico,
+
+		id_tecnico_cargo
+
+	)
+
+VALUES
+
+-- OS 1: Troca de tela do iPhone 11 (Entregue)
+
+	(
+
+		1,
+
+		'Tela quebrada após queda.',
+
+		'Display frontal danificado, toque não responde.',
+
+		'2026-09-01 09:30:00',
+
+		'2026-09-02 16:00:00',
+
+		50000,
+
+		2,
+
+		2,
+
+		2,
+
+		5,
+
+		3
+
+	),
+
+-- OS 2: Upgrade de SSD em Notebook Dell (Pronto)
+
+	(
+
+		3,
+
+		'Notebook muito lento para ligar.',
+
+		'Lentidão provocada por HD mecânico antigo.',
+
+		'2026-09-10 10:15:00',
+
+		'2026-09-11 14:30:00',
+
+		38000,
+
+		1,
+
+		3,
+
+		2,
+
+		6,
+
+		3
+
+	),
+
+-- OS 3: Smart TV em diagnóstico
+
+	(
+
+		4,
+
+		'TV com som, mas imagem não aparece.',
+
+		'Barra de LED queimada.',
+
+		'2026-09-15 11:00:00',
+
+		NULL,
+
+		NULL,
+
+		1,
+
+		2,
+
+		2,
+
+		5,
+
+		3
+
+	),
+
+-- OS 4: Console PS5 (Em Reparo)
+
+	(
+
+		5,
+
+		'Desligando por aquecimento.',
+
+		'Acúmulo severo de poeira e necessidade de troca de pasta térmica.',
+
+		'2026-09-20 14:20:00',
+
+		NULL,
+
+		NULL,
+
+		4,
+
+		4,
+
+		2,
+
+		6,
+
+		3
+
+	);
+
+-- 2.10. Histórico de Mudanças de Status da OS (RF07)
+
+INSERT
+
+	INTO
+
+	ordem_situacao (id_ordem,
+
+	id_nova_situacao,
+
+	data_situacao)
+
+VALUES
+
+-- OS 1 (Aberto -> Em Diagnóstico -> Orçamento Aprovado -> Em Reparo -> Pronto -> Entregue)
+
+	(1,
+
+1,
+
+'2026-09-01 09:30:00'),
+
+(1,
+
+2,
+
+'2026-09-01 10:00:00'),
+
+(1,
+
+3,
+
+'2026-09-01 11:30:00'),
+
+(1,
+
+4,
+
+'2026-09-01 14:00:00'),
+
+(1,
+
+5,
+
+'2026-09-02 15:30:00'),
+
+(1,
+
+6,
+
+'2026-09-02 16:00:00'),
+
+-- OS 2 (Aberto -> Orçamento Aprovado -> Em Reparo -> Pronto)
+
+	(2,
+
+1,
+
+'2026-09-10 10:15:00'),
+
+(2,
+
+3,
+
+'2026-09-10 10:45:00'),
+
+(2,
+
+4,
+
+'2026-09-10 11:00:00'),
+
+(2,
+
+5,
+
+'2026-09-11 14:30:00'),
+
+-- OS 3 (Aberto -> Em Diagnóstico)
+
+	(3,
+
+1,
+
+'2026-09-15 11:00:00'),
+
+(3,
+
+2,
+
+'2026-09-15 15:00:00'),
+
+-- OS 4 (Aberto -> Orçamento Aprovado -> Em Reparo)
+
+	(4,
+
+1,
+
+'2026-09-20 14:20:00'),
+
+(4,
+
+3,
+
+'2026-09-20 15:00:00'),
+
+(4,
+
+4,
+
+'2026-09-20 16:00:00');
+
+-- 2.11. Peças Utilizadas nas Ordens de Serviço (RF11 / RN01 / RN02)
+
+-- Valores de venda congelados na data do vínculo
+
+INSERT
+
+	INTO
+
+	ordem_peca (id_ordem,
+
+	id_peca,
+
+	preco,
+
+	quantidade,
+
+	data_saida)
+
+VALUES
+
+	(1,
+
+11,
+
+35000,
+
+1,
+
+'2026-09-01 14:30:00'),
+
+-- Tela iPhone 11 para OS 1
+
+	(2,
+
+1,
+
+26000,
+
+1,
+
+'2026-09-10 11:30:00');
+
+-- SSD NVMe 512GB para OS 2
+
+-- 2.12. Serviços Executados nas Ordens de Serviço (RF06 / RN02)
+
+-- Valores dos serviços congelados na data da execução
+
+INSERT
+
+	INTO
+
+	ordem_servico (
+
+		id_ordem,
+
+		id_servico,
+
+		preco,
+
+		quantidade,
+
+		data_execucao
+
+	)
+
+VALUES
+
+	(1,
+
+6,
+
+15000,
+
+1,
+
+'2026-09-01 15:00:00'),
+
+-- Troca de Display Frontal
+
+	(2,
+
+1,
+
+12000,
+
+1,
+
+'2026-09-10 13:00:00'),
+
+-- Formatação e Instalação
+
+	(3,
+
+10,
+
+35000,
+
+1,
+
+'2026-09-15 16:00:00'),
+
+-- Troca Barra de LED TV
+
+	(4,
+
+14,
+
+22000,
+
+1,
+
+'2026-09-20 16:30:00');
+
+-- Higienização PS5
+
+-- 2.13. Baixa/Saída de Peças (RF10)
+
+-- Motivos: Uso em Reparo (Situação ID 4 - Em Reparo) ou Descarte (Situação ID 8)
+
+INSERT
+
+	INTO
+
+	saida_peca (
+
+		id_peca,
+
+		preco_venda,
+
+		quantidade,
+
+		id_situacao,
+
+		id_funcionario,
+
+		id_funcionario_cargo
+
+	)
+
+VALUES
+
+	(11,
+
+35000,
+
+1,
+
+4,
+
+1,
+
+1\),
+
+-- Peça baixada para uso na OS 1
+
+	(1,
+
+26000,
+
+1,
+
+4,
+
+1,
+
+1\),
+
+-- Peça baixada para uso na OS 2
+
+	(5,
+
+6000,
+
+1,
+
+8,
+
+1,
+
+1\);
